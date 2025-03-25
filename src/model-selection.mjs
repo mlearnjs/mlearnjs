@@ -46,10 +46,13 @@ export function trainTestSplit(X, y, testSize = 0.2, randomState = 42) {
 //console.log("y_test:", y_test);
 
 
-export function joinArrays(xLabel, xData, yLabel, yData, yPredictLabel, yPredictData) {
-    return xData.map((xRow, index) => ({
-        [xLabel]: xRow[0],               // Cada fila de xTrain
-        [yLabel]: yData[index],       // Elemento correspondiente de yTrain
-        [yPredictLabel]: yPredictData[index]  // Elemento correspondiente de yPredict
-    }));
+export function joinArrays() {
+    var a = []
+    if (arguments.length == 6) {
+        a.push([arguments[0],arguments[2],arguments[4]])
+        for(var i = 0; i < arguments[1].length; i++) {
+            a.push([arguments[1][i][0],arguments[3][i],arguments[5][i]])
+        }
+    }
+    return a
 }
