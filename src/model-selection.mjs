@@ -48,7 +48,7 @@ export function trainTestSplit(X, y, testSize = 0.2, randomState = 42) {
 
 export function joinArrays(xLabel, xData, yLabel, yData, yPredictLabel, yPredictData) {
     return xData.map((xRow, index) => ({
-        [xLabel]: xRow,               // Cada fila de xTrain
+        [xLabel]: xRow[0],               // Cada fila de xTrain
         [yLabel]: yData[index],       // Elemento correspondiente de yTrain
         [yPredictLabel]: yPredictData[index]  // Elemento correspondiente de yPredict
     }));
