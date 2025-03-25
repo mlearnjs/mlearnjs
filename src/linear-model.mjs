@@ -17,7 +17,7 @@ export class LinearRegression {
       
     fit(xTrain, yTrain) {
         try {
-            checkDataLength(xTrain, yTrain);
+            this.checkDataLength(xTrain, yTrain);
             var sumX = 0;
             var sumY = 0;
             var sumXY = 0;
