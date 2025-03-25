@@ -6,12 +6,12 @@ export class LinearRegression {
     }
 
     checkDataLength(xTrain, yTrain) {
-        if (!Array.isArray(xTrain) || !Array.isArray(yTrain))
-            throw new Error('The xTrain or yTrain parameters are not matrices or arrays.');
-        if (xTrain.some(row => !Array.isArray(row)))
-            throw new Error('xTrain must be a 2D array!');
         if (xTrain.length !== yTrain.length)
             throw new Error('The parameters for training do not have the same length!');
+        if (!Array.isArray(xTrain) || !Array.isArray(yTrain))
+            throw new Error('The xTrain or yTrain parameters are not arrays.');
+        if (xTrain.length === 0 || yTrain.length === 0)
+            throw new Error('The xTrain or yTrain parameters are empty!.');
         return true;
     }
       
@@ -24,15 +24,14 @@ export class LinearRegression {
             var sumXX = 0;
     
             for(var i = 0; i < xTrain.length; i++) {
-                const xValue = xTrain[i][0];
-                sumX += xValue;
-                sumY += yTrain[i];
-                sumXY += xValue * yTrain[i];
-                sumXX += xValue * xValue;
+                sumX += xTrain[i]
+                sumY += yTrain[i]
+                sumXY += xTrain[i] * yTrain[i]
+                sumXX += xTrain[i] * xTrain[i]
             }
-            this.m = (xTrain.length * sumXY - sumX * sumY) / (xTrain.length * sumXX - Math.pow(Math.abs(sumX), 2));
-            this.b = (sumY * sumXX - sumX * sumXY) / (xTrain.length * sumXX - Math.pow(Math.abs(sumX), 2));
-            this.isFit = true;
+            this.m = (xTrain.length * sumXY - sumX * sumY) / (xTrain.length * sumXX - Math.pow(Math.abs(sumX), 2))
+            this.b = (sumY * sumXX - sumX * sumXY) / (xTrain.length * sumXX - Math.pow(Math.abs(sumX), 2))        
+            this.isFit = true
         } catch (error) {
             console.error(error.message);
         }
@@ -41,12 +40,8 @@ export class LinearRegression {
     predict(xTest) {
         var yPredict = []
         if (this.isFit) {
-            for (var i = 0; i < xTest.length; i++) {
-                let prediction = this.b; // Empezamos con el valor del bias
-                for (var j = 0; j < xTest[i].length; j++) {
-                    prediction += this.m[j] * xTest[i][j]; // Multiplicación punto a punto
-                }
-                yPredict.push(prediction); // Guardamos la predicción
+            for(var i = 0; i < xTest.length; i++) {
+                yPredict.push(this.m * xTest[i] + this.b)
             }            
         }
         return yPredict
