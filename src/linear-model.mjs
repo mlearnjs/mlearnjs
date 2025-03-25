@@ -41,12 +41,17 @@ export class LinearRegression {
     predict(xTest) {
         var yPredict = []
         if (this.isFit) {
-            for(var i = 0; i < xTest.length; i++) {
-                yPredict.push(this.m * xTest[i] + this.b)
+            for (var i = 0; i < xTest.length; i++) {
+                let prediction = this.b; // Empezamos con el valor del bias
+                for (var j = 0; j < xTest[i].length; j++) {
+                    prediction += this.m[j] * xTest[i][j]; // Multiplicación punto a punto
+                }
+                yPredict.push(prediction); // Guardamos la predicción
             }            
         }
         return yPredict
     }
+    
 
     mserror(yTrain, yPredict) {
         var mse = 0
