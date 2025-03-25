@@ -1,4 +1,4 @@
-class GaussianNB {
+export class GaussianNB {
     constructor() {
       this.classProbabilities = {};
       this.featureProbabilities = {};
@@ -80,4 +80,3 @@ class GaussianNB {
   const predictions = model.predict([[2, 3], [3, 4]]);
   console.log(predictions); // Resultado esperado: [1, 0]
   */
- 
